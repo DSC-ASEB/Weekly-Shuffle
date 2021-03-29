@@ -221,6 +221,7 @@ while(len(random_pair) <= 0):
 	random_pair = generate_random_pairs(connections, new_connections)
 
 output = create_output_dataframes(random_pair)
+print(output)
 output.to_csv('Week_'+str(len(weeks)+1)+'.csv')
 # with pd.ExcelWriter(public_url, engine = 'xlsxwriter') as writer:
 # 	output.to_excel(writer, sheet_name = 'Week_'+str(len(weeks)+1))
