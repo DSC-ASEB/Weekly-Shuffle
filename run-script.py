@@ -234,5 +234,5 @@ if __name__ == '__main__':
 		random_pair = generate_random_pairs(connections, new_connections)
 
 	output = create_output_dataframes(random_pair)
-	print(output)
+	print(output[['Partner_1', 'Partner_2']])
 	output.to_csv('Week_'+str(len(weeks)+1)+'.csv')
