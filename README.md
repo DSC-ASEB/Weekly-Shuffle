@@ -2,7 +2,7 @@
 
 <div align="center">
     <a href="https://github.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator/blob/script/Weekly%20Shuffle.png">
-        <img width="50%" height="auto" src="https://raw.githubusercontent.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator/script/Weekly%20Shuffle.png">
+        <img width="50%" src="https://raw.githubusercontent.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator/script/Weekly%20Shuffle.png">
     </a>
 </div>
 
@@ -53,7 +53,7 @@ Would prefer creating virtual environment through [Anaconda](https://www.anacond
 
 ```bash
 pip install -r requirements.txt
-python run-script.py "database.xlsx" "weekly_shuffle.xlsx" 
+python run-script.py "database.xlsx" "weekly_shuffle.xlsx"
 ```
 
 ## :bookmark: Releases
