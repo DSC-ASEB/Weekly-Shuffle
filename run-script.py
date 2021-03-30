@@ -9,7 +9,7 @@ def check_database(database):
 	Input: Pandas dataframe (Participant Database)
 	Output: None - prints if it find duplicates
 	'''
-	
+
 	for column in database.columns:
 		if database[column].duplicated().sum():
 			print(f'{column} - Duplicates were found in this database')
@@ -20,9 +20,9 @@ def check_database(database):
 
 def load_data(private_url, public_url):
 	'''
-	Input: 
+	Input:
 	-------
-	private_url : contains user xslx filepath 
+	private_url : contains user xslx filepath
 	public_url  : contains past week partners filepath
 
 	Output:
@@ -59,7 +59,7 @@ def split_partners(week, database):
 	'''
 
 	def_partners_parse = lambda partners: [participant if participant is not np.nan else None for participant in partners]
-    
+
 	partner_list_1 = def_partners_parse(week.Partner_1.tolist())
 	partner_list_2 = def_partners_parse(week.Partner_2.tolist())
 	partner_status = (week.Status == 'Started')
@@ -69,17 +69,17 @@ def check_partners(*, p1, p2, db_names):
 	'''
 	p1  : particpant group 1 details
 	p2  : particpant group 2 details
-	db_names : entire participant details 
+	db_names : entire participant details
 	'''
 
 	not_matched = []
-    
+
 	for a, b in zip(p1, p2):
 	    if (a is not None) and (a not in db_names):
 	        not_matched.append(a)
 	    if (b is not None) and (b not in db_names):
 	        not_matched.append(b)
-	
+
 	return None if len(not_matched) == 0 else not_matched
 
 def parse_weeks(weeks, database):
@@ -164,7 +164,7 @@ def generate_random_pairs(connections, new_connections):
 	random_pair = np.random.permutation([partner for partner in new_connections.keys()]).reshape(-1, 2)
 
 	for p1, p2 in random_pair:
-		
+
 		p1_num = new_connections[p1][1]
 		p2_num = new_connections[p2][1]
 
@@ -185,14 +185,14 @@ def create_output_dataframes(random_pair):
 
 		usr_data = {
 			# Partner Names
-			'Partner_1': p1,'Partner_2': p2, 
+			'Partner_1': p1,'Partner_2': p2,
 
 			# Partner Whatsapp Numbers
-			'P1_Number': p1_details[1], 
-			'P2_Number': p2_details[1], 
+			'P1_Number': p1_details[1],
+			'P2_Number': p2_details[1],
 
 			# Partner Email
-			'P1_Email': p1_details[0], 
+			'P1_Email': p1_details[0],
 			'P2_Email': p2_details[0]
 		}
 
@@ -223,7 +223,7 @@ if __name__ == '__main__':
 
 	new_connections = validate_and_parse_register(database, register)
 
-	if new_connections == None:
+	if new_connections is None:
 		print('\nCheck for errors in the register or database.')
 		exit()
 
