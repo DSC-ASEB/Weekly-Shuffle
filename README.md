@@ -1,8 +1,8 @@
 # Weekly Shuffle Partner Generator
 
 <div align="center">
-    <a href="https://github.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator/blob/script/Weekly%20Shuffle.png">
-        <img width="50%" src="https://raw.githubusercontent.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator/script/Weekly%20Shuffle.png">
+    <a href="https://github.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator/blob/main/Weekly%20Shuffle.png">
+        <img width="50%" src="https://raw.githubusercontent.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator/main/Weekly%20Shuffle.png">
     </a>
 </div>
 
