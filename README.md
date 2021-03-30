@@ -2,7 +2,7 @@
 
 <div align="center">
     <a href="https://github.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator/blob/script/Weekly%20Shuffle.png">
-        <img src="https://raw.githubusercontent.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator/script/Weekly%20Shuffle.png">
+        <img width="100%" height="auto" src="https://raw.githubusercontent.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator/script/Weekly%20Shuffle.png">
     </a>
 </div>
 
@@ -14,7 +14,7 @@
 
 A tool to generate partners for the Weekly Shuffle program at Google DSC ASEB.
 
-# :open_file_folder: Folder Structure
+## :open_file_folder: Folder Structure
 
     Weekly-Shuffle-Partner-Generator/
     ├── .github/ISSUE_TEMPLATE
@@ -25,29 +25,29 @@ A tool to generate partners for the Weekly Shuffle program at Google DSC ASEB.
     ├── requirements.txt            # Python Environment Requirements File
     └── run-script.py               # Main Script File
 
-# 🛠️ Built With
+## 🛠️ Built With
 
--   [Numpy]()
--   [Pandas]()
+- [Numpy]()
+- [Pandas]()
 
-# :octocat: How to contribute?
+## :octocat: How to contribute?
 
 All contributions are welcome! Code, documentation, graphics or even design suggestions are welcome; use GitHub to its fullest. Submit pull requests, contribute tutorials or other wiki contents -- whatever you have to offer, it would be appreciated!
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on contributing.
 
-# :scroll: License
+## :scroll: License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-# :family: Team
+## :family: Team
 
--   **Aravind V. Nair** - Google DSC Lead - [@AravindVNair99](https://github.com/AravindVNair99)
--   **Sai Nikhilesh** - Google DSC Technical Member - [@SaiNikhileshReddy](https://github.com/SaiNikhileshReddy)
+- **Aravind V. Nair** - Google DSC ASEB Lead - [@AravindVNair99](https://github.com/AravindVNair99)
+- **Sai Nikhilesh** - Google DSC ASEB Technical Member - [@SaiNikhileshReddy](https://github.com/SaiNikhileshReddy)
 
 See the full list of [contributors](https://github.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator/graphs/contributors) who participated in this project and statistics.
 
-# :heavy_exclamation_mark: Prerequisites aka requirements
+## :heavy_exclamation_mark: Prerequisites aka requirements
 
 Would prefer creating virtual environment through [Anaconda](https://www.anaconda.com/products/individual) or [Python Venv](https://docs.python.org/3/library/venv.html)
 
@@ -55,24 +55,24 @@ Would prefer creating virtual environment through [Anaconda](https://www.anacond
 pip install -r requirements.txt
 ```
 
-# :bookmark: Releases
+## :bookmark: Releases
 
 View all versions [here](https://github.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator/releases).
 
-# :scroll: Changelog
+## :scroll: Changelog
 
-Check the [changelog here](https://github.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator/commits/master).
+Check the [changelog here](https://github.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator/commits/main).
 
-# :memo: I found some bugs or issues. Where do I report?
+## :memo: I found some bugs or issues. Where do I report?
 
 Report [here](https://github.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator/issues/new/choose) in detail answering these questions:
 
--   What steps did you take to make the bug appear?
--   How can the bug be fixed? (In case you know)
--   Which OS and which all packages/software/dependencies are you using?
--   Have you tried any troubleshooting steps such as a reboot for example?
--   Have you followed the prescribed prerequisites?
+- What steps did you take to make the bug appear?
+- How can the bug be fixed? (In case you know)
+- Which OS and which all packages/software/dependencies are you using?
+- Have you tried any troubleshooting steps such as a reboot for example?
+- Have you followed the prescribed prerequisites?
 
-# :envelope: How do I contact the team?
+## :envelope: How do I contact the team?
 
 Check [here](https://github.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator/graphs/contributors) for the list of contributors. Contact one of them through their profiles.
