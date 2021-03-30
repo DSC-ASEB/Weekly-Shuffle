@@ -48,8 +48,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Aravind V. Nair** - Google DSC Lead - [AravindVNair99](https://github.com/AravindVNair99)
 - **Sai Nikhilesh**   - Google DSC Technical Member - [@SaiNikhilesh](https://github.com/Shreya1304)
 
-Note: FACE, ACM and ACM-W here refers to the student chapter at Amrita School of Engineering, Bengaluru.
-
 See the full list of [contributors](https://github.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator/graphs/contributors) who participated in this project and statistics.
 
 # :heavy_exclamation_mark: Prerequisites aka requirements
