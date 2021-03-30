@@ -1,13 +1,13 @@
 # Weekly Shuffle Partner Generator
 
 ### Logo - Here
-<!--
+
 <div align="center">
-    <a href="http://thismypc.com/">
-        <img src="https://raw.githubusercontent.com/supunlakmal/thismypc/master/thisMyPCWeb/src/assets/images/logo/logo-mini.png">
+    <a href="https://github.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator/blob/script/Weekly%20Shuffle.png">
+        <img src="https://raw.githubusercontent.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator/script/Weekly%20Shuffle.png">
     </a>
 </div>
--->
+
 
 <div align="center">
 
