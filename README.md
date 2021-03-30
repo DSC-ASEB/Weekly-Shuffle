@@ -53,6 +53,7 @@ Would prefer creating virtual environment through [Anaconda](https://www.anacond
 
 ```bash
 pip install -r requirements.txt
+python run-script.py "database.xlsx" "weekly_shuffle.xlsx" 
 ```
 
 ## :bookmark: Releases
