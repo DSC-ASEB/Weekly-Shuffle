@@ -52,7 +52,11 @@ See the full list of [contributors](https://github.com/DSC-ASEB/Weekly-Shuffle-P
 
 # :heavy_exclamation_mark: Prerequisites aka requirements
 
-Please read [Prerequisite](Prerequisite.md) file for details.
+Would prefer creating virtual environment through [Anaconda](https://www.anaconda.com/products/individual) or [Python Venv](https://docs.python.org/3/library/venv.html)
+
+```bash
+pip install -r requirements.txt
+```
 
 # :bookmark: Releases
 
