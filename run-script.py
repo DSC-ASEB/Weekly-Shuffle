@@ -139,6 +139,7 @@ def validate_and_parse_register(database, register):
 	register_email = retrieve_data(register, 'Email')
 	register_number = retrieve_data(register, 'WhatsApp Number')
 	new_connections = {}
+	not_present = False
 
 	for user_email, user_number in zip(register_email, register_number):
 
@@ -149,10 +150,17 @@ def validate_and_parse_register(database, register):
 		elif user_number in db_number:
 			usr_db = database[database['WhatsApp Number'] == user_number]
 			new_connections[usr_db['Full name'].tolist()[0]] = [usr_db['Email'].tolist()[0], usr_db['WhatsApp Number'].tolist()[0]]
+		else:
+			print('[Error - Not Present - Database]')
+			print(user_email, user_number)
+			not_present = True
+			print()
 
-	return new_connections
+
+	return new_connections if (not not_present) and (len(new_connections)%2 != 0) else None
 
 def generate_random_pairs(connections, new_connections):
+	print('connections count :', len(new_connections.keys()))
 	random_pair = np.random.permutation([partner for partner in new_connections.keys()]).reshape(-1, 2)
 
 	for p1, p2 in random_pair:
@@ -214,12 +222,16 @@ if __name__ == '__main__':
 	check_database(register)
 
 	new_connections = validate_and_parse_register(database, register)
+
+	if new_connections == None:
+		print('\nCheck for errors in the register or database.')
+		exit()
+
 	random_pair = []
 
 	while(len(random_pair) <= 0):
 		print("[Reshuffling]")
 		random_pair = generate_random_pairs(connections, new_connections)
-
 
 	output = create_output_dataframes(random_pair)
 	print(output)
