@@ -9,6 +9,7 @@
 <div align="center">
 
 ![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat) [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator/graphs/commit-activity) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator/blob/master/LICENSE)
+
 </div>
 
 A tool to generate partners for the Weekly Shuffle program at Google DSC ASEB.
@@ -24,11 +25,10 @@ A tool to generate partners for the Weekly Shuffle program at Google DSC ASEB.
     ├── requirements.txt            # Python Environment Requirements File
     └── run-script.py               # Main Script File
 
-
 # 🛠️ Built With
 
-- [Numpy]()
-- [Pandas]()
+-   [Numpy]()
+-   [Pandas]()
 
 # :octocat: How to contribute?
 
@@ -42,8 +42,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 # :family: Team
 
-- **Aravind V. Nair** - Google DSC Lead - [@AravindVNair99](https://github.com/AravindVNair99)
-- **Sai Nikhilesh**   - Google DSC Technical Member - [@SaiNikhileshReddy](https://github.com/SaiNikhileshReddy)
+-   **Aravind V. Nair** - Google DSC Lead - [@AravindVNair99](https://github.com/AravindVNair99)
+-   **Sai Nikhilesh** - Google DSC Technical Member - [@SaiNikhileshReddy](https://github.com/SaiNikhileshReddy)
 
 See the full list of [contributors](https://github.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator/graphs/contributors) who participated in this project and statistics.
 
@@ -67,11 +67,11 @@ Check the [changelog here](https://github.com/DSC-ASEB/Weekly-Shuffle-Partner-Ge
 
 Report [here](https://github.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator/issues/new/choose) in detail answering these questions:
 
-- What steps did you take to make the bug appear?
-- How can the bug be fixed? (In case you know)
-- Which OS and which all packages/software/dependencies are you using?
-- Have you tried any troubleshooting steps such as a reboot for example?
-- Have you followed the prescribed prerequisites?
+-   What steps did you take to make the bug appear?
+-   How can the bug be fixed? (In case you know)
+-   Which OS and which all packages/software/dependencies are you using?
+-   Have you tried any troubleshooting steps such as a reboot for example?
+-   Have you followed the prescribed prerequisites?
 
 # :envelope: How do I contact the team?
 
