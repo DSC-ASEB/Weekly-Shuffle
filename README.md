@@ -2,7 +2,7 @@
 
 <div align="center">
     <a href="https://github.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator/blob/script/Weekly%20Shuffle.png">
-        <img width="100%" height="auto" src="https://raw.githubusercontent.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator/script/Weekly%20Shuffle.png">
+        <img width="50%" height="auto" src="https://raw.githubusercontent.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator/script/Weekly%20Shuffle.png">
     </a>
 </div>
 
