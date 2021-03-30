@@ -139,7 +139,7 @@ def validate_and_parse_register(database, register):
 	register_email = retrieve_data(register, 'Email')
 	register_number = retrieve_data(register, 'WhatsApp Number')
 	new_connections = {}
-	not_present = False
+	present = True
 
 	for user_email, user_number in zip(register_email, register_number):
 
@@ -153,14 +153,14 @@ def validate_and_parse_register(database, register):
 		else:
 			print('[Error - Not Present - Database]')
 			print(user_email, user_number)
-			not_present = True
+			present = False
 			print()
 
 
-	return new_connections if (not not_present) and (len(new_connections)%2 != 0) else None
+	return new_connections if (present) and (len(new_connections)%2 == 0) else None
 
 def generate_random_pairs(connections, new_connections):
-	print('connections count :', len(new_connections.keys()))
+	# print('connections count :', len(new_connections.keys()))
 	random_pair = np.random.permutation([partner for partner in new_connections.keys()]).reshape(-1, 2)
 
 	for p1, p2 in random_pair:
