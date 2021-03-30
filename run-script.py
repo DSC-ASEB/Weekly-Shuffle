@@ -1,6 +1,7 @@
 import numpy as np
 import os
 import pandas as pd
+import sys
 
 
 def check_database(database):
@@ -78,8 +79,8 @@ def check_partners(*, p1, p2, db_names):
 	        not_matched.append(a)
 	    if (b is not None) and (b not in db_names):
 	        not_matched.append(b)
-	else:
-	    return None if len(not_matched) == 0 else not_matched
+	
+	return None if len(not_matched) == 0 else not_matched
 
 def parse_weeks(weeks, database):
 
@@ -99,7 +100,6 @@ def parse_weeks(weeks, database):
 			'week_status' : week_status,
 			'verify' : verify
 		}
-
 
 	print()
 
@@ -160,21 +160,16 @@ def generate_random_pairs(connections, new_connections):
 		p1_num = new_connections[p1][1]
 		p2_num = new_connections[p2][1]
 
-		try:
-			if p2_num in connections[p1_num]:
-				return([])
+		if p2_num in connections.get(p1_num, []):
+			return([])
 
-			if p1_num in connections[p2_num]:
-				return([])
-
-		except:
-			pass
+		if p1_num in connections.get(p2_num, []):
+			return([])
 
 	return random_pair
 
 def create_output_dataframes(random_pair):
 
-	# create_output_dataframes
 	output = pd.DataFrame([], columns=['Partner_1','Partner_2', 'P1_Number', 'P2_Number', 'P1_Email', 'P2_Email'])
 	for p1, p2 in random_pair:
 
@@ -197,31 +192,35 @@ def create_output_dataframes(random_pair):
 
 	return output
 
-private_url = 'assets/DSC ASEB Weekly Shuffle (Responses).xlsx'
-public_url  = 'assets/DSC ASEB Weekly Shuffle.xlsx'
 
-database, register, weeks = load_data(private_url, public_url)
+if __name__ == '__main__':
 
-# print(f'Database : {database.columns}')
-# print(f'Register : {register.columns}')
-# print(f'weeks : {[week.columns for week in weeks]}')
+	if (len(sys.argv) != 3):
+		print('Incorrect number of arguments')
+		print('Usage: python run-script.py database.xlsx week_shuffle.xlsx')
+		exit()
 
-print('Checking entire user database for any duplicates')
-check_database(database)
-user_dict = parse_weeks(weeks, database)
-connections = generate_old_pair_json(user_dict, database)
+	private_url = sys.argv[1]
+	public_url  = sys.argv[2]
 
-print('Checking new register database for any duplicates')
-check_database(register)
+	database, register, weeks = load_data(private_url, public_url)
 
-new_connections = validate_and_parse_register(database, register)
-random_pair = []
+	print('Checking entire user database for any duplicates')
+	check_database(database)
+	user_dict = parse_weeks(weeks, database)
+	connections = generate_old_pair_json(user_dict, database)
 
-while(len(random_pair) <= 0):
-	random_pair = generate_random_pairs(connections, new_connections)
+	print('Checking new register database for any duplicates')
+	check_database(register)
 
-output = create_output_dataframes(random_pair)
-print(output)
-output.to_csv('Week_'+str(len(weeks)+1)+'.csv')
-# with pd.ExcelWriter(public_url, engine = 'xlsxwriter') as writer:
-# 	output.to_excel(writer, sheet_name = 'Week_'+str(len(weeks)+1))
+	new_connections = validate_and_parse_register(database, register)
+	random_pair = []
+
+	while(len(random_pair) <= 0):
+		print("[Reshuffling]")
+		random_pair = generate_random_pairs(connections, new_connections)
+
+
+	output = create_output_dataframes(random_pair)
+	print(output)
+	output.to_csv('Week_'+str(len(weeks)+1)+'.csv')
