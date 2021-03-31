@@ -11,15 +11,15 @@ import pandas as pd
 
 def check_database(database):
 	'''
-	It checks and prints the status if any duplicates exist by column wise in the input dataframe 
+	It checks and prints the status if any duplicates exist by column wise in the input dataframe
 
 	Parameters:
 	-----
 	Pandas dataframe (Participant Database)
 
-	Returns: 
+	Returns:
 	-----
-	None  
+	None
 	'''
 
 	for column in database.columns:
@@ -33,7 +33,7 @@ def check_database(database):
 
 def load_data(private_filepath, public_filepath=None):
 	'''
-	It will load the data from the input 
+	It will load the data from the input
 
 	Parameters:
 	-----
@@ -187,7 +187,7 @@ def generate_old_pair_json(user_dict, database):
 def validate_and_parse_register(database, register):
 	'''
 	It verifies whether the register information exist in user database or not
-	
+
 	Parameters:
 	-----
 	database  : entire user dataframe
@@ -242,7 +242,7 @@ def generate_random_pairs(new_connections, connections=None):
 	random_pair = np.random.permutation([partner for partner in new_connections.keys()]).reshape(-1, 2)
 
 	if connections is None:
-		return random_pair 
+		return random_pair
 
 	for p1, p2 in random_pair:
 
@@ -324,7 +324,7 @@ if __name__ == '__main__':
 			exit()
 		elif len(new_connections) % 2 != 0:
 			print('\nOdd number of participants exist in register sheet. Make it even to form pairs.')
-			exist()
+			exit()
 
 		random_pair = []
 
@@ -339,7 +339,7 @@ if __name__ == '__main__':
 
 	if (len(sys.argv) == 2):
 
-		private_url = sys.argv[1]	
+		private_url = sys.argv[1]
 		database, register = load_data(private_url)
 
 		print('Checking entire user database for any duplicates')
@@ -355,7 +355,7 @@ if __name__ == '__main__':
 			exit()
 		elif len(new_connections) % 2 != 0:
 			print('\nOdd number of participants exist in register sheet. Make it even to form pairs.')
-			exist()
+			exit()
 
 		random_pair = generate_random_pairs(new_connections)
 
