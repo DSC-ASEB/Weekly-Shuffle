@@ -22,7 +22,7 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r requirements.txt
-        py run-script.py assets/evenDB_evenRegistration.xlsx
+        python run-script.py assets/evenDB_evenRegistration.xlsx
       
         python -m pip install --upgrade pip
         python -m pip install flake8 pytest
