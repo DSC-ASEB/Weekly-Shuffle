@@ -57,7 +57,7 @@ def load_data(private_filepath, public_filepath=None):
 		weeks = [public_db.parse(week) for week in public_db.sheet_names if week.startswith('Week_') ]
 		return (database, register, weeks)
 
-	return (database, register)
+	return (database, register, None)
 
 
 def split_partners(week, database):
@@ -340,7 +340,7 @@ if __name__ == '__main__':
 	if (len(sys.argv) == 2):
 
 		private_url = sys.argv[1]
-		database, register = load_data(private_url)
+		database, register, _ = load_data(private_url)
 
 		print('Checking entire user database for any duplicates')
 		check_database(database)
