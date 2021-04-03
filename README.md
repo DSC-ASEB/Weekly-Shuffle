@@ -2,14 +2,8 @@
 
 <div align="center">
     <a href="https://github.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator/blob/main/Weekly%20Shuffle.png">
-        <img width="50%" src="https://raw.githubusercontent.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator/main/Weekly%20Shuffle.png">
+        <img width="25%" src="https://raw.githubusercontent.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator/main/Weekly%20Shuffle.png">
     </a>
-</div>
-
-<div align="center">
-
-![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat) [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator/graphs/commit-activity) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator/blob/master/LICENSE)
-
 </div>
 
 A tool to generate partners for the Weekly Shuffle program at Google DSC ASEB.
@@ -51,9 +45,9 @@ See the full list of [contributors](https://github.com/DSC-ASEB/Weekly-Shuffle-P
 
 Would prefer creating virtual environment through [Anaconda](https://www.anaconda.com/products/individual) or [Python Venv](https://docs.python.org/3/library/venv.html)
 
-```bash
+```console
 pip install -r requirements.txt
-python run-script.py "database.xlsx" "weekly_shuffle.xlsx"
+python generate.py "database.xlsx" "weekly_shuffle.xlsx"
 ```
 
 ## :bookmark: Releases
