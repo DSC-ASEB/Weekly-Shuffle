@@ -8,22 +8,6 @@
 
 A tool to generate partners for the Weekly Shuffle program at Google DSC ASEB.
 
-## :open_file_folder: Folder Structure
-
-    Weekly-Shuffle-Partner-Generator/
-    ├── .github/ISSUE_TEMPLATE
-    ├── .gitignore
-    ├── CODEOWNERS
-    ├── LICENSE
-    ├── README.md
-    ├── requirements.txt            # Python Environment Requirements File
-    └── run-script.py               # Main Script File
-
-## 🛠️ Built With
-
-- [Numpy]()
-- [Pandas]()
-
 ## :octocat: How to contribute?
 
 All contributions are welcome! Code, documentation, graphics or even design suggestions are welcome; use GitHub to its fullest. Submit pull requests, contribute tutorials or other wiki contents -- whatever you have to offer, it would be appreciated!
@@ -41,9 +25,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 See the full list of [contributors](https://github.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator/graphs/contributors) who participated in this project and statistics.
 
-## :heavy_exclamation_mark: Prerequisites aka requirements
+## :heavy_exclamation_mark: Get started
 
-Would prefer creating virtual environment through [Anaconda](https://www.anaconda.com/products/individual) or [Python Venv](https://docs.python.org/3/library/venv.html)
+Create a virtual environment via [Anaconda](https://www.anaconda.com/products/individual) or [Python Venv](https://docs.python.org/3/library/venv.html)
 
 ```console
 pip install -r requirements.txt
