@@ -7,6 +7,7 @@ import os
 import sys
 import numpy as np
 import pandas as pd
+import json
 
 
 def check_database(database):
@@ -163,23 +164,35 @@ def generate_old_pair_json(user_dict, database):
 	connections = {}
 	parse_number = lambda participant: database[database['Full name'] == participant]['WhatsApp Number'].tolist()[0]
 
-	for week_name in user_dict.keys():
+	for (week_number, week_name) in enumerate(user_dict.keys(), 1):
 		week = user_dict[week_name]
 
 		for p1, p2 in zip(week['week_p1'], week['week_p2']):
-			if (p1 is None) or (p2 is None):
-				continue
 
-			p1_num = parse_number(p1)
-			p2_num = parse_number(p2)
 
-			dict_array = connections.get(p1_num, [])
-			dict_array.append(p2_num)
-			connections[p1_num] = dict_array
+			exception = None
 
-			dict_array = connections.get(p2_num, [])
-			dict_array.append(p1_num)
-			connections[p2_num] = dict_array
+			if (p1 is None):
+				exception = p2
+			elif (p2 is None):
+				exception = p1
+
+			if (exception is not None):
+				number = parse_number(exception)
+				array = connections.get(number, [])
+				array.append((number, week_number))
+				connections[number] = array
+			else:
+				p1_num = parse_number(p1)
+				p2_num = parse_number(p2)
+
+				dict_array = connections.get(p1_num, [])
+				dict_array.append((p2_num, week_number))
+				connections[p1_num] = dict_array
+			
+				dict_array = connections.get(p2_num, [])
+				dict_array.append((p1_num, week_number))
+				connections[p2_num] = dict_array
 
 	return connections
 
@@ -221,8 +234,7 @@ def validate_and_parse_register(database, register):
 			print(user_email, user_number)
 			present = False
 			print()
-
-
+			
 	return new_connections if present else None
 
 
@@ -293,10 +305,38 @@ def create_output_dataframes(random_pair, new_connections):
 
 	return output
 
+def generate_inactive_and_active(connections, week_no):
+	'''
+	It generates a dictionary with active and inactive participants numbers.
+
+	Parameters:
+	-----
+	connections : It contains dictionary of participants with old pairs.
+	week_no     : last week number
+
+	Returns:
+	-----
+	dictionary with "Active" and "Inactive" as keys
+	'''
+
+	print()
+	compare_list = range(week_no-2, week_no+1)
+
+	active, inactive = [], []
+	for key in connections.keys():
+		if set(compare_list).issubset(set([value[1] for value in connections[key]])):
+			active.append(key)
+		else:
+			inactive.append(key)
+
+	return {'Active': active, 'Inactive': inactive}
+
 
 if __name__ == '__main__':
 
-	if (1 < len(sys.argv) > 4):
+	print(len(sys.argv))
+
+	if ((2 > len(sys.argv)) or (len(sys.argv) > 3)):
 		print('Incorrect number of arguments')
 		print('Usage: python run-script.py database.xlsx week_shuffle.xlsx')
 		print('Usage: python run-script.py database.xlsx # if you are just using this tool for first time')
@@ -314,6 +354,9 @@ if __name__ == '__main__':
 		user_dict = parse_weeks(weeks, database)
 		connections = generate_old_pair_json(user_dict, database)
 
+		with open('all_weeks_connections.json', 'w') as file:
+			json.dump(connections, file)
+
 		print('Checking new register database for any duplicates')
 		check_database(register)
 
@@ -323,7 +366,7 @@ if __name__ == '__main__':
 			print('\nCheck for errors in the register or database.')
 			exit()
 		elif len(new_connections) % 2 != 0:
-			print('\nOdd number of participants exist in register sheet. Make it even to form pairs.')
+			print('\nOdd number of participants exist in register sheet. Make it even to generate pairs.')
 			exit()
 
 		random_pair = []
@@ -335,6 +378,12 @@ if __name__ == '__main__':
 		output = create_output_dataframes(random_pair, new_connections)
 		print(output[['Partner_1', 'Partner_2']])
 		output.to_csv('Week_'+str(len(weeks)+1)+'.csv')
+
+		# Debug
+		jsn = generate_inactive_and_active(connections, len(weeks))
+		with open('active_inactive.json', 'w') as file:
+			json.dump(jsn, file)
+
 		exit()
 
 	if (len(sys.argv) == 2):
@@ -354,7 +403,7 @@ if __name__ == '__main__':
 			print('\nCheck for errors in the register or database.')
 			exit()
 		elif len(new_connections) % 2 != 0:
-			print('\nOdd number of participants exist in register sheet. Make it even to form pairs.')
+			print('\nOdd number of participants exist in register sheet. Make it even to generate pairs.')
 			exit()
 
 		random_pair = generate_random_pairs(new_connections)
