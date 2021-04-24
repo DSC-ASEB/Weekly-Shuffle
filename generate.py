@@ -189,7 +189,6 @@ def generate_old_pair_json(user_dict, database):
 				dict_array = connections.get(p1_num, [])
 				dict_array.append((p2_num, week_number))
 				connections[p1_num] = dict_array
-			
 				dict_array = connections.get(p2_num, [])
 				dict_array.append((p1_num, week_number))
 				connections[p2_num] = dict_array
@@ -234,7 +233,7 @@ def validate_and_parse_register(database, register):
 			print(user_email, user_number)
 			present = False
 			print()
-			
+
 	return new_connections if present else None
 
 
@@ -333,8 +332,6 @@ def generate_inactive_and_active(connections, week_no):
 
 
 if __name__ == '__main__':
-
-	print(len(sys.argv))
 
 	if ((2 > len(sys.argv)) or (len(sys.argv) > 3)):
 		print('Incorrect number of arguments')
