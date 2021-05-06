@@ -9,8 +9,7 @@ import pandas as pd
 
 
 def check_database(database):
-	"""
-	It checks and prints the status if any duplicates exist by column wise in the input dataframe
+	"""It checks and prints the status if any duplicates exist by column wise in the input dataframe
 
 	Parameters:
 	-----
@@ -30,8 +29,7 @@ def check_database(database):
 
 
 def load_data(private_filepath, public_filepath=None):
-	"""
-	It will load the data from the input
+	"""It will load the data from the input
 
 	Parameters:
 	-----
@@ -59,8 +57,7 @@ def load_data(private_filepath, public_filepath=None):
 
 
 def split_partners(week, database):
-	"""
-	It splits both partner columns and status
+	"""It splits both partner columns and status
 
 	Parameters:
 	-------
@@ -83,8 +80,7 @@ def split_partners(week, database):
 
 
 def check_partners(*, p1, p2, db_names):
-	"""
-	It checks whether partner names exist in the private database
+	"""It checks whether partner names exist in the private database
 
 	Parameters:
 	-----
@@ -109,8 +105,7 @@ def check_partners(*, p1, p2, db_names):
 
 
 def parse_weeks(weeks, database):
-	"""
-	It creates dictionary holding important information regarding Week's partners and status
+	"""It creates dictionary holding important information regarding Week's partners and status
 
 	Parameters:
 	-----
@@ -145,8 +140,7 @@ def parse_weeks(weeks, database):
 
 
 def generate_old_pair_json(user_dict, database):
-	"""
-	It creates json of all the old weekly shuffle pairs
+	"""It creates json of all the old weekly shuffle pairs
 
 	Parameters:
 	-----
@@ -194,8 +188,7 @@ def generate_old_pair_json(user_dict, database):
 
 
 def validate_and_parse_register(database, register):
-	"""
-	It verifies whether the register information exist in user database or not
+	"""It verifies whether the register information exist in user database or not
 
 	Parameters:
 	-----
@@ -234,8 +227,7 @@ def validate_and_parse_register(database, register):
 	return new_connections if present else None
 
 def generate_random_pairs(new_connections, connections=None):
-	"""
-	It generates a list of pairs using numpy's permutation function
+	"""It generates a list of pairs using numpy's permutation function
 
 	Parameters:
 	-----
@@ -265,8 +257,7 @@ def generate_random_pairs(new_connections, connections=None):
 	return random_pair
 
 def create_output_dataframes(random_pair, new_connections):
-	"""
-	It generates a dataframe, so it can be converted to a csv file later on
+	"""It generates a dataframe, so it can be converted to a csv file later on
 
 	Parameters:
 	-----
@@ -301,8 +292,7 @@ def create_output_dataframes(random_pair, new_connections):
 	return output
 
 def generate_inactive_and_active(connections, week_no):
-	"""
-	It generates a dictionary with active and inactive participants numbers.
+	"""It generates a dictionary with active and inactive participants numbers.
 
 	Parameters:
 	-----
@@ -328,8 +318,7 @@ def generate_inactive_and_active(connections, week_no):
 
 
 def output_active_inactive(database, jsn):
-	"""
-	It generates a Panda's DataFrames for active and inactive participants information.
+	"""It generates a Panda's DataFrames for active and inactive participants information.
 
 	Parameters:
 	-----
