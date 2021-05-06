@@ -7,7 +7,6 @@ import os
 import sys
 import numpy as np
 import pandas as pd
-import json
 
 
 def check_database(database):
@@ -343,8 +342,6 @@ def output_active_inactive(database, jsn):
 	-----
 	Panda's DataFrames for active and inactive participants
 	'''
-
-	active, inactive = jsn['Active'], jsn['Inactive']
 
 	retrieve_number = lambda number: database[database['WhatsApp Number'] == number].iloc[0].tolist()
 	active_list = [retrieve_number(usr) for usr in jsn['Active']]
