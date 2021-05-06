@@ -236,7 +236,6 @@ def validate_and_parse_register(database, register):
 
 	return new_connections if present else None
 
-
 def generate_random_pairs(new_connections, connections=None):
 	'''
 	It generates a list of pairs using numpy's permutation function
@@ -331,6 +330,31 @@ def generate_inactive_and_active(connections, week_no):
 	return {'Active': active, 'Inactive': inactive}
 
 
+def output_active_inactive(database, jsn):
+	'''
+	It generates a Panda's DataFrames for active and inactive participants information.
+
+	Parameters:
+	-----
+	database : It contains all user information
+	jsn : It contains generate_inactive_and_active() json
+
+	Returns:
+	-----
+	Panda's DataFrames for active and inactive participants
+	'''
+
+	active, inactive = jsn['Active'], jsn['Inactive']
+
+	retrieve_number = lambda number: database[database['WhatsApp Number'] == number].iloc[0].tolist()
+	active_list = [retrieve_number(usr) for usr in jsn['Active']]
+	inactive_list = [retrieve_number(usr) for usr in jsn['Inactive']]
+
+	return (
+		pd.DataFrame(active_list, columns=['Name', 'Email', 'Number']),
+		pd.DataFrame(inactive_list, columns=['Name', 'Email', 'Number']))
+
+
 if __name__ == '__main__':
 
 	if ((2 > len(sys.argv)) or (len(sys.argv) > 3)):
@@ -350,9 +374,6 @@ if __name__ == '__main__':
 		check_database(database)
 		user_dict = parse_weeks(weeks, database)
 		connections = generate_old_pair_json(user_dict, database)
-
-		with open('all_weeks_connections.json', 'w') as file:
-			json.dump(connections, file)
 
 		print('Checking new register database for any duplicates')
 		check_database(register)
@@ -378,10 +399,10 @@ if __name__ == '__main__':
 
 		# Debug
 		jsn = generate_inactive_and_active(connections, len(weeks))
-		with open('active_inactive.json', 'w') as file:
-			json.dump(jsn, file)
+		active, inactive = output_active_inactive(database, jsn)
 
-		exit()
+		active.to_csv('active_participants.csv', index=False)
+		inactive.to_csv('inactive_participants.csv', index=False)
 
 	if (len(sys.argv) == 2):
 
