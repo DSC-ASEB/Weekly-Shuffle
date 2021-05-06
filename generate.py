@@ -3,14 +3,13 @@
 # Repository  : https://github.com/DSC-ASEB/Weekly-Shuffle-Partner-Generator
 # ==========================================
 
-import os
 import sys
 import numpy as np
 import pandas as pd
 
 
 def check_database(database):
-	'''
+	"""
 	It checks and prints the status if any duplicates exist by column wise in the input dataframe
 
 	Parameters:
@@ -20,8 +19,7 @@ def check_database(database):
 	Returns:
 	-----
 	None
-	'''
-
+	"""
 	for column in database.columns:
 		if database[column].duplicated().sum():
 			print(f'{column} - Duplicates were found in this database')
@@ -32,7 +30,7 @@ def check_database(database):
 
 
 def load_data(private_filepath, public_filepath=None):
-	'''
+	"""
 	It will load the data from the input
 
 	Parameters:
@@ -45,7 +43,7 @@ def load_data(private_filepath, public_filepath=None):
 	database    : Pandas dataframe containing participant database
 	register    : Pandas dataframe containing next week participant details
 	weeks       : Contains past week participant details as pandas dataframe
-	'''
+	"""
 
 	private_db = pd.ExcelFile(private_filepath)
 
@@ -61,7 +59,7 @@ def load_data(private_filepath, public_filepath=None):
 
 
 def split_partners(week, database):
-	'''
+	"""
 	It splits both partner columns and status
 
 	Parameters:
@@ -74,7 +72,7 @@ def split_partners(week, database):
 	partner_list_1 : partner 1 names
 	partner_list_2 : partner 2 names
 	partner_status : status of the participants
-	'''
+	"""
 
 	def_partners_parse = lambda partners: [participant if participant is not np.nan else None for participant in partners]
 
@@ -85,7 +83,7 @@ def split_partners(week, database):
 
 
 def check_partners(*, p1, p2, db_names):
-	'''
+	"""
 	It checks whether partner names exist in the private database
 
 	Parameters:
@@ -97,7 +95,7 @@ def check_partners(*, p1, p2, db_names):
 	Returns:
 	-----
 	list of unmatched partner names to the database and None if every name matches to the database
-	'''
+	"""
 
 	not_matched = []
 
@@ -111,7 +109,7 @@ def check_partners(*, p1, p2, db_names):
 
 
 def parse_weeks(weeks, database):
-	'''
+	"""
 	It creates dictionary holding important information regarding Week's partners and status
 
 	Parameters:
@@ -122,7 +120,7 @@ def parse_weeks(weeks, database):
 	Returns:
 	-----
 	user_dict: well structured weeks extracted data in dictionary datatype
-	'''
+	"""
 
 	print('Checking for any errors in weeks:')
 
@@ -147,7 +145,7 @@ def parse_weeks(weeks, database):
 
 
 def generate_old_pair_json(user_dict, database):
-	'''
+	"""
 	It creates json of all the old weekly shuffle pairs
 
 	Parameters:
@@ -158,7 +156,7 @@ def generate_old_pair_json(user_dict, database):
 	Returns:
 	-----
 	connections : dictionary generated based on users number as key and value as old pair's (partner) number. [Phone Number]
-	'''
+	"""
 
 	connections = {}
 	parse_number = lambda participant: database[database['Full name'] == participant]['WhatsApp Number'].tolist()[0]
@@ -196,7 +194,7 @@ def generate_old_pair_json(user_dict, database):
 
 
 def validate_and_parse_register(database, register):
-	'''
+	"""
 	It verifies whether the register information exist in user database or not
 
 	Parameters:
@@ -207,7 +205,7 @@ def validate_and_parse_register(database, register):
 	Returns:
 	-----
 	new_connections : dictionary containing their names as keys and values as email and phone number.
-	'''
+	"""
 
 	retrieve_data = lambda dataframe, column : dataframe[column].tolist()
 
@@ -236,7 +234,7 @@ def validate_and_parse_register(database, register):
 	return new_connections if present else None
 
 def generate_random_pairs(new_connections, connections=None):
-	'''
+	"""
 	It generates a list of pairs using numpy's permutation function
 
 	Parameters:
@@ -247,7 +245,7 @@ def generate_random_pairs(new_connections, connections=None):
 	Returns:
 	-----
 	list of random pairs generated
-	'''
+	"""
 	random_pair = np.random.permutation([partner for partner in new_connections.keys()]).reshape(-1, 2)
 
 	if connections is None:
@@ -267,7 +265,7 @@ def generate_random_pairs(new_connections, connections=None):
 	return random_pair
 
 def create_output_dataframes(random_pair, new_connections):
-	'''
+	"""
 	It generates a dataframe, so it can be converted to a csv file later on
 
 	Parameters:
@@ -278,7 +276,7 @@ def create_output_dataframes(random_pair, new_connections):
 	Returns:
 	-----
 	output : dataframe containing participants name, email and phone number
-	'''
+	"""
 
 	output = pd.DataFrame([], columns=['Partner_1','Partner_2', 'P1_Number', 'P2_Number', 'P1_Email', 'P2_Email'])
 	for p1, p2 in random_pair:
@@ -303,7 +301,7 @@ def create_output_dataframes(random_pair, new_connections):
 	return output
 
 def generate_inactive_and_active(connections, week_no):
-	'''
+	"""
 	It generates a dictionary with active and inactive participants numbers.
 
 	Parameters:
@@ -314,7 +312,7 @@ def generate_inactive_and_active(connections, week_no):
 	Returns:
 	-----
 	dictionary with "Active" and "Inactive" as keys
-	'''
+	"""
 
 	print()
 	compare_list = range(week_no-2, week_no+1)
@@ -330,7 +328,7 @@ def generate_inactive_and_active(connections, week_no):
 
 
 def output_active_inactive(database, jsn):
-	'''
+	"""
 	It generates a Panda's DataFrames for active and inactive participants information.
 
 	Parameters:
@@ -341,7 +339,7 @@ def output_active_inactive(database, jsn):
 	Returns:
 	-----
 	Panda's DataFrames for active and inactive participants
-	'''
+	"""
 
 	retrieve_number = lambda number: database[database['WhatsApp Number'] == number].iloc[0].tolist()
 	active_list = [retrieve_number(usr) for usr in jsn['Active']]
