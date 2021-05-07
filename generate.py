@@ -184,7 +184,6 @@ def generate_old_pair_json(user_dict, database):
 				dict_array = connections.get(p2_num, [])
 				dict_array.append((p1_num, week_number))
 				connections[p2_num] = dict_array
-
 	return connections
 
 
@@ -308,7 +307,6 @@ def generate_inactive_and_active(connections, week_no):
 	"""
 	print()
 	compare_list = range(week_no-2, week_no+1)
-
 	active, inactive = [], []
 	for key in connections.keys():
 		if set(compare_list).issubset(set([value[1] for value in connections[key]])):
