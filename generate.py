@@ -157,8 +157,9 @@ def generate_old_pair_json(user_dict, database):
     connections : dictionary generated based on users number as key and value as old pair's (partner) number. [Phone Number]
     """
     connections = {}
-    def parse_number(
-        participant): return database[database['Full name'] == participant]['WhatsApp Number'].tolist()[0]
+
+    def parse_number(participant):
+        return database[database['Full name'] == participant]['WhatsApp Number'].tolist()[0]
 
     for (week_number, week_name) in enumerate(user_dict.keys(), 1):
         week = user_dict[week_name]
@@ -341,8 +342,8 @@ def output_active_inactive(database, jsn):
     -----
     Panda's DataFrames for active and inactive participants
     """
-    def retrieve_number(
-        number): return database[database['WhatsApp Number'] == number].iloc[0].tolist()
+    def retrieve_number(number):
+        return database[database['WhatsApp Number'] == number].iloc[0].tolist()
     active_list = [retrieve_number(usr) for usr in jsn['Active']]
     inactive_list = [retrieve_number(usr) for usr in jsn['Inactive']]
 
