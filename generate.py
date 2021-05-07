@@ -239,7 +239,7 @@ def generate_random_pairs(new_connections, connections=None):
 	-----
 	list of random pairs generated
 	'''
-	random_pair = np.random.permutation([partner for partner in new_connections.keys()]).reshape(-1, 2)
+	random_pair = np.random.permutation(list(new_connections.keys())).reshape(-1, 2)
 
 	if connections is None:
 		return random_pair
