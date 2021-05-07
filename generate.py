@@ -239,7 +239,7 @@ def generate_random_pairs(new_connections, connections=None):
 	-----
 	list of random pairs generated
 	'''
-	random_pair = np.random.permutation([partner for partner in new_connections.keys()]).reshape(-1, 2)
+	random_pair = np.random.permutation(list(new_connections.keys())).reshape(-1, 2)
 
 	if connections is None:
 		return random_pair
@@ -300,7 +300,7 @@ if __name__ == '__main__':
 		print('Incorrect number of arguments')
 		print('Usage: python run-script.py database.xlsx week_shuffle.xlsx')
 		print('Usage: python run-script.py database.xlsx # if you are just using this tool for first time')
-		exit()
+		sys.exit()
 
 	if (len(sys.argv) == 3):
 
@@ -321,10 +321,10 @@ if __name__ == '__main__':
 
 		if new_connections is None:
 			print('\nCheck for errors in the register or database.')
-			exit()
+			sys.exit()
 		elif len(new_connections) % 2 != 0:
 			print('\nOdd number of participants exist in register sheet. Make it even to form pairs.')
-			exit()
+			sys.exit()
 
 		random_pair = []
 
@@ -335,7 +335,7 @@ if __name__ == '__main__':
 		output = create_output_dataframes(random_pair, new_connections)
 		print(output[['Partner_1', 'Partner_2']])
 		output.to_csv('Week_'+str(len(weeks)+1)+'.csv')
-		exit()
+		sys.exit()
 
 	if (len(sys.argv) == 2):
 
@@ -352,14 +352,14 @@ if __name__ == '__main__':
 
 		if new_connections is None:
 			print('\nCheck for errors in the register or database.')
-			exit()
+			sys.exit()
 		elif len(new_connections) % 2 != 0:
 			print('\nOdd number of participants exist in register sheet. Make it even to form pairs.')
-			exit()
+			sys.exit()
 
 		random_pair = generate_random_pairs(new_connections)
 
 		output = create_output_dataframes(random_pair, new_connections)
 		print(output[['Partner_1', 'Partner_2']])
 		output.to_csv('Week_1.csv')
-		exit()
+		sys.exit()
