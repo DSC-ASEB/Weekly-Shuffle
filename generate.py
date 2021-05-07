@@ -73,8 +73,9 @@ def split_partners(week, database):
     partner_list_2 : partner 2 names
     partner_status : status of the participants
     """
-    def def_partners_parse(partners): return [
-        participant if participant is not np.nan else None for participant in partners]
+    def def_partners_parse(partners):
+        return [
+            participant if participant is not np.nan else None for participant in partners]
 
     partner_list_1 = def_partners_parse(week.Partner_1.tolist())
     partner_list_2 = def_partners_parse(week.Partner_2.tolist())
@@ -203,7 +204,8 @@ def validate_and_parse_register(database, register):
     -----
     new_connections : dictionary containing their names as keys and values as email and phone number.
     """
-    def retrieve_data(dataframe, column): return dataframe[column].tolist()
+    def retrieve_data(dataframe, column):
+        return dataframe[column].tolist()
 
     db_email = retrieve_data(database, 'Email')
     db_number = retrieve_data(database, 'WhatsApp Number')
