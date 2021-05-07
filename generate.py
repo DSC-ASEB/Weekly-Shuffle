@@ -310,7 +310,6 @@ def generate_inactive_and_active(connections, week_no):
 	active, inactive = [], []
 	for key in connections.keys():
 		if set(compare_list).issubset(set([value[1] for value in connections[key]])):
-		if set(compare_list).issubset({value[1] for value in connections[key]}):
 			active.append(key)
 		else:
 			inactive.append(key)
