@@ -42,7 +42,6 @@ def load_data(private_filepath, public_filepath=None):
 	register    : Pandas dataframe containing next week participant details
 	weeks       : Contains past week participant details as pandas dataframe
 	"""
-
 	private_db = pd.ExcelFile(private_filepath)
 
 	database = private_db.parse('Final')
@@ -70,7 +69,6 @@ def split_partners(week, database):
 	partner_list_2 : partner 2 names
 	partner_status : status of the participants
 	"""
-
 	def_partners_parse = lambda partners: [participant if participant is not np.nan else None for participant in partners]
 
 	partner_list_1 = def_partners_parse(week.Partner_1.tolist())
@@ -92,7 +90,6 @@ def check_partners(*, p1, p2, db_names):
 	-----
 	list of unmatched partner names to the database and None if every name matches to the database
 	"""
-
 	not_matched = []
 
 	for a, b in zip(p1, p2):
@@ -116,7 +113,6 @@ def parse_weeks(weeks, database):
 	-----
 	user_dict: well structured weeks extracted data in dictionary datatype
 	"""
-
 	print('Checking for any errors in weeks:')
 
 	user_dict = {}
@@ -151,7 +147,6 @@ def generate_old_pair_json(user_dict, database):
 	-----
 	connections : dictionary generated based on users number as key and value as old pair's (partner) number. [Phone Number]
 	"""
-
 	connections = {}
 	parse_number = lambda participant: database[database['Full name'] == participant]['WhatsApp Number'].tolist()[0]
 
@@ -199,7 +194,6 @@ def validate_and_parse_register(database, register):
 	-----
 	new_connections : dictionary containing their names as keys and values as email and phone number.
 	"""
-
 	retrieve_data = lambda dataframe, column : dataframe[column].tolist()
 
 	db_email = retrieve_data(database, 'Email')
@@ -268,7 +262,6 @@ def create_output_dataframes(random_pair, new_connections):
 	-----
 	output : dataframe containing participants name, email and phone number
 	"""
-
 	output = pd.DataFrame([], columns=['Partner_1','Partner_2', 'P1_Number', 'P2_Number', 'P1_Email', 'P2_Email'])
 	for p1, p2 in random_pair:
 
@@ -303,7 +296,6 @@ def generate_inactive_and_active(connections, week_no):
 	-----
 	dictionary with "Active" and "Inactive" as keys
 	"""
-
 	print()
 	compare_list = range(week_no-2, week_no+1)
 
@@ -329,7 +321,6 @@ def output_active_inactive(database, jsn):
 	-----
 	Panda's DataFrames for active and inactive participants
 	"""
-
 	retrieve_number = lambda number: database[database['WhatsApp Number'] == number].iloc[0].tolist()
 	active_list = [retrieve_number(usr) for usr in jsn['Active']]
 	inactive_list = [retrieve_number(usr) for usr in jsn['Inactive']]
