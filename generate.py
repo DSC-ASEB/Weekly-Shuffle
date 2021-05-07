@@ -58,14 +58,13 @@ def load_data(private_filepath, public_filepath=None):
     return (database, register, None)
 
 
-def split_partners(week, database):
+def split_partners(week):
     """
     It splits both partner columns and status
 
     Parameters:
     -------
     week           : Contain single week user data
-    database       : Contains entire participant database
 
     Returns:
     -------
@@ -127,7 +126,7 @@ def parse_weeks(weeks, database):
 
     for (index, week) in enumerate(weeks, 1):
 
-        (week_p1, week_p2), week_status = split_partners(week, database)
+        (week_p1, week_p2), week_status = split_partners(week)
         verify = check_partners(p1=week_p1, p2=week_p2,
                                 db_names=database['Full name'].tolist())
         print(f'Week_{index} : {verify}')
