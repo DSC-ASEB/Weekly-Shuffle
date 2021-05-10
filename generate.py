@@ -247,13 +247,13 @@ def generate_random_pairs(new_connections, connections=None):
     -----
     list of random pairs generated
     """
-    random_pair = np.random.permutation(
+    random_pairs = np.random.permutation(
         list(new_connections.keys())).reshape(-1, 2)
 
     if connections is None:
-        return random_pair
+        return random_pairs
 
-    for p1, p2 in random_pair:
+    for p1, p2 in random_pairs:
 
         p1_num = new_connections[p1][1]
         p2_num = new_connections[p2][1]
@@ -264,27 +264,27 @@ def generate_random_pairs(new_connections, connections=None):
         if p1_num in connections.get(p2_num, []):
             return([])
 
-    return random_pair
+    return random_pairs
 
 
-def create_output_dataframes(random_pair, new_connections):
+def create_output_dataframes(random_pairs, connections_new):
     """
     It generates a dataframe, so it can be converted to a csv file later on
 
     Parameters:
     -----
-    random_pair : list of randomly generated particpants data
-    new_connections : dictionary holding register users data
+    random_pairs : list of randomly generated particpants data
+    connections_new : dictionary holding register users data
 
     Returns:
     -----
-    output : dataframe containing participants name, email and phone number
+    return_pd : dataframe containing participants name, email and phone number
     """
-    output = pd.DataFrame([], columns=['Partner_1', 'Partner_2',
+    return_pd = pd.DataFrame([], columns=['Partner_1', 'Partner_2',
                           'P1_Number', 'P2_Number', 'P1_Email', 'P2_Email'])
-    for p1, p2 in random_pair:
+    for p1, p2 in random_pairs:
 
-        p1_details, p2_details = new_connections[p1], new_connections[p2]
+        p1_details, p2_details = connections_new[p1], connections_new[p2]
 
         usr_data = {
             # Partner Names
@@ -299,18 +299,18 @@ def create_output_dataframes(random_pair, new_connections):
             'P2_Email': p2_details[0]
         }
 
-        output = output.append(usr_data, ignore_index=True)
+        return_pd = return_pd.append(usr_data, ignore_index=True)
 
-    return output
+    return return_pd
 
 
-def generate_inactive_and_active(connections, week_no):
+def generate_inactive_and_active(old_pairs, week_no):
     """
     It generates a dictionary with active and inactive participants numbers.
 
     Parameters:
     -----
-    connections : It contains dictionary of participants with old pairs.
+    old_pairs : It contains dictionary of participants with old pairs.
     week_no     : last week number
 
     Returns:
@@ -320,8 +320,8 @@ def generate_inactive_and_active(connections, week_no):
     print()
     compare_list = range(week_no-2, week_no+1)
     active, inactive = [], []
-    for key in connections.keys():
-        if set(compare_list).issubset({value[1] for value in connections[key]}):
+    for key in old_pairs.keys():
+        if set(compare_list).issubset({value[1] for value in old_pairs[key]}):
             active.append(key)
         else:
             inactive.append(key)
@@ -329,27 +329,26 @@ def generate_inactive_and_active(connections, week_no):
     return {'Active': active, 'Inactive': inactive}
 
 
-def output_active_inactive(database, jsn):
+def output_active_inactive(db, jsnn):
     """
     It generates a Panda's DataFrames for active and inactive participants information.
 
     Parameters:
     -----
-    database : It contains all user information
-    jsn : It contains generate_inactive_and_active() json
+    db : It contains all user information
+    jsnn : It contains generate_inactive_and_active() json
 
     Returns:
     -----
     Panda's DataFrames for active and inactive participants
     """
     def retrieve_number(number):
-        return database[database['WhatsApp Number'] == number].iloc[0].tolist()
-    active_list = [retrieve_number(usr) for usr in jsn['Active']]
-    inactive_list = [retrieve_number(usr) for usr in jsn['Inactive']]
+        return db[db['WhatsApp Number'] == number].iloc[0].tolist()
+    active_list = [retrieve_number(usr) for usr in jsnn['Active']]
+    inactive_list = [retrieve_number(usr) for usr in jsnn['Inactive']]
 
-    return (
-        pd.DataFrame(active_list, columns=['Name', 'Email', 'Number']),
-        pd.DataFrame(inactive_list, columns=['Name', 'Email', 'Number']))
+    return (pd.DataFrame(active_list, columns=['Name', 'Email', 'Number']),
+    		pd.DataFrame(inactive_list, columns=['Name', 'Email', 'Number']))
 
 
 if __name__ == '__main__':
@@ -397,10 +396,10 @@ if __name__ == '__main__':
 
         # Debug
         jsn = generate_inactive_and_active(connections, len(weeks))
-        active, inactive = output_active_inactive(database, jsn)
+        active_pd, inactive_pd = output_active_inactive(database, jsn)
 
-        active.to_csv('active_participants.csv', index=False)
-        inactive.to_csv('inactive_participants.csv', index=False)
+        active_pd.to_csv('active_participants.csv', index=False)
+        inactive_pd.to_csv('inactive_participants.csv', index=False)
 
     if (len(sys.argv) == 2):
 
