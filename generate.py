@@ -8,20 +8,20 @@ import numpy as np
 import pandas as pd
 
 
-def check_database(database):
+def check_database(db):
     """
     It checks and prints the status if any duplicates exist by column wise in the input dataframe
 
     Parameters:
     -----
-    Pandas dataframe (Participant Database)
+    db : Pandas dataframe (Participant Database)
 
     Returns:
     -----
     None
     """
-    for column in database.columns:
-        if database[column].duplicated().sum():
+    for column in db.columns:
+        if db[column].duplicated().sum():
             print(f'{column} - Duplicates were found in this database')
         else:
             print(f'{column} - Perfect')
@@ -40,22 +40,21 @@ def load_data(private_filepath, public_filepath=None):
 
     Returns:
     -----
-    database    : Pandas dataframe containing participant database
-    register    : Pandas dataframe containing next week participant details
-    weeks       : Contains past week participant details as pandas dataframe
+    user_db        : Pandas dataframe containing participant database
+    register_db    : Pandas dataframe containing next week participant details
+    weeks          : Contains past week participant details as pandas dataframe
     """
     private_db = pd.ExcelFile(private_filepath)
 
-    database = private_db.parse('Final')
-    register = private_db.parse('Register')
+    user_db = private_db.parse('Final')
+    register_db = private_db.parse('Register')
 
     if public_filepath is not None:
         public_db = pd.ExcelFile(public_filepath)
-        weeks = [public_db.parse(
-            week) for week in public_db.sheet_names if week.startswith('Week_')]
-        return (database, register, weeks)
+        return (user_db, register_db, 
+        	[public_db.parse(week) for week in public_db.sheet_names if week.startswith('Week_')])
 
-    return (database, register, None)
+    return (user_db, register_db, None)
 
 
 def split_partners(week):
@@ -107,31 +106,31 @@ def check_partners(*, p1, p2, db_names):
     return None if len(not_matched) == 0 else not_matched
 
 
-def parse_weeks(weeks, database):
+def parse_weeks(weeks_df, db):
     """
     It creates dictionary holding important information regarding Week's partners and status
 
     Parameters:
     -----
-    weeks    : list of week dataframes
-    database : entire user dataframe
+    weeks_df    : list of week dataframes
+    db          : entire user dataframe
 
     Returns:
     -----
-    user_dict: well structured weeks extracted data in dictionary datatype
+    user_data: well structured weeks extracted data in dictionary datatype
     """
     print('Checking for any errors in weeks:')
 
-    user_dict = {}
+    user_data = {}
 
-    for (index, week) in enumerate(weeks, 1):
+    for (index, week) in enumerate(weeks_df, 1):
 
         (week_p1, week_p2), week_status = split_partners(week)
         verify = check_partners(p1=week_p1, p2=week_p2,
-                                db_names=database['Full name'].tolist())
+                                db_names=db['Full name'].tolist())
         print(f'Week_{index} : {verify}')
 
-        user_dict['Week_'+str(index)] = {
+        user_data['Week_'+str(index)] = {
             'week_p1': week_p1,
             'week_p2': week_p2,
             'week_status': week_status,
@@ -140,29 +139,29 @@ def parse_weeks(weeks, database):
 
     print()
 
-    return user_dict
+    return user_data
 
 
-def generate_old_pair_json(user_dict, database):
+def generate_old_pair_json(user_data, db):
     """
     It creates json of all the old weekly shuffle pairs
 
     Parameters:
     -----
-    user_dict : well structured weeks extracted data in dictionary datatype
-    database  : entire user dataframe
+    user_data : well structured weeks extracted data in dictionary datatype
+    db  : entire user dataframe
 
     Returns:
     -----
-    connections : dictionary generated based on users number as key and value as old pair's (partner) number. [Phone Number]
+    connections_data : dictionary generated based on users number as key and value as old pair's (partner) number. [Phone Number]
     """
-    connections = {}
+    connections_data = {}
 
     def parse_number(participant):
-        return database[database['Full name'] == participant]['WhatsApp Number'].tolist()[0]
+        return db[db['Full name'] == participant]['WhatsApp Number'].tolist()[0]
 
-    for (week_number, week_name) in enumerate(user_dict.keys(), 1):
-        week = user_dict[week_name]
+    for (week_number, week_name) in enumerate(user_data.keys(), 1):
+        week = user_data[week_name]
 
         for p1, p2 in zip(week['week_p1'], week['week_p2']):
 
@@ -175,55 +174,55 @@ def generate_old_pair_json(user_dict, database):
 
             if (exception is not None):
                 number = parse_number(exception)
-                array = connections.get(number, [])
+                array = connections_data.get(number, [])
                 array.append((number, week_number))
-                connections[number] = array
+                connections_data[number] = array
             else:
                 p1_num = parse_number(p1)
                 p2_num = parse_number(p2)
 
-                dict_array = connections.get(p1_num, [])
+                dict_array = connections_data.get(p1_num, [])
                 dict_array.append((p2_num, week_number))
-                connections[p1_num] = dict_array
-                dict_array = connections.get(p2_num, [])
+                connections_data[p1_num] = dict_array
+                dict_array = connections_data.get(p2_num, [])
                 dict_array.append((p1_num, week_number))
-                connections[p2_num] = dict_array
-    return connections
+                connections_data[p2_num] = dict_array
+    return connections_data
 
 
-def validate_and_parse_register(database, register):
+def validate_and_parse_register(db, register_df):
     """
     It verifies whether the register information exist in user database or not
 
     Parameters:
     -----
-    database  : entire user dataframe
-    register  : new week applicants dataframe
+    db           : entire user dataframe
+    register_df  : new week applicants dataframe
 
     Returns:
     -----
-    new_connections : dictionary containing their names as keys and values as email and phone number.
+    new_pairs : dictionary containing their names as keys and values as email and phone number.
     """
     def retrieve_data(dataframe, column):
         return dataframe[column].tolist()
 
-    db_email = retrieve_data(database, 'Email')
-    db_number = retrieve_data(database, 'WhatsApp Number')
-    register_email = retrieve_data(register, 'Email')
-    register_number = retrieve_data(register, 'WhatsApp Number')
-    new_connections = {}
+    db_email = retrieve_data(db, 'Email')
+    db_number = retrieve_data(db, 'WhatsApp Number')
+    register_email = retrieve_data(register_df, 'Email')
+    register_number = retrieve_data(register_df, 'WhatsApp Number')
+    new_pairs = {}
     present = True
 
     for user_email, user_number in zip(register_email, register_number):
 
         if user_email in db_email:
-            usr_db = database[database['Email'] == user_email]
-            new_connections[usr_db['Full name'].tolist()[0]] = [usr_db['Email'].tolist()[
+            usr_db = db[db['Email'] == user_email]
+            new_pairs[usr_db['Full name'].tolist()[0]] = [usr_db['Email'].tolist()[
                 0], usr_db['WhatsApp Number'].tolist()[0]]
 
         elif user_number in db_number:
-            usr_db = database[database['WhatsApp Number'] == user_number]
-            new_connections[usr_db['Full name'].tolist()[0]] = [usr_db['Email'].tolist()[
+            usr_db = db[db['WhatsApp Number'] == user_number]
+            new_pairs[usr_db['Full name'].tolist()[0]] = [usr_db['Email'].tolist()[
                 0], usr_db['WhatsApp Number'].tolist()[0]]
         else:
             print('[Error - Not Present - Database]')
@@ -231,37 +230,37 @@ def validate_and_parse_register(database, register):
             present = False
             print()
 
-    return new_connections if present else None
+    return new_pairs if present else None
 
 
-def generate_random_pairs(new_connections, connections=None):
+def generate_random_pairs(new_pairs, old_pairs=None):
     """
     It generates a list of pairs using numpy's permutation function
 
     Parameters:
     -----
-    connections     : contains past week's participants data
-    new_connections : contains present week's particpants data
+    old_pairs     : contains past week's participants data
+    new_pairs : contains present week's particpants data
 
     Returns:
     -----
     list of random pairs generated
     """
     random_pairs = np.random.permutation(
-        list(new_connections.keys())).reshape(-1, 2)
+        list(new_pairs.keys())).reshape(-1, 2)
 
-    if connections is None:
+    if old_pairs is None:
         return random_pairs
 
     for p1, p2 in random_pairs:
 
-        p1_num = new_connections[p1][1]
-        p2_num = new_connections[p2][1]
+        p1_num = new_pairs[p1][1] 
+        p2_num = new_pairs[p2][1]
 
-        if p2_num in connections.get(p1_num, []):
+        if p2_num in old_pairs.get(p1_num, []):
             return([])
 
-        if p1_num in connections.get(p2_num, []):
+        if p1_num in old_pairs.get(p2_num, []):
             return([])
 
     return random_pairs
