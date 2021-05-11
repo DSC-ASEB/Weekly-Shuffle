@@ -280,7 +280,7 @@ def create_output_dataframes(random_pairs, connections_new):
     return_pd : dataframe containing participants name, email and phone number
     """
     return_pd = pd.DataFrame([], columns=['Partner_1', 'Partner_2',
-                          'P1_Number', 'P2_Number', 'P1_Email', 'P2_Email'])
+                                          'P1_Number', 'P2_Number', 'P1_Email', 'P2_Email'])
     for p1, p2 in random_pairs:
 
         p1_details, p2_details = connections_new[p1], connections_new[p2]
@@ -347,7 +347,7 @@ def output_active_inactive(db, jsnn):
     inactive_list = [retrieve_number(usr) for usr in jsnn['Inactive']]
 
     return (pd.DataFrame(active_list, columns=['Name', 'Email', 'Number']),
-    		pd.DataFrame(inactive_list, columns=['Name', 'Email', 'Number']))
+            pd.DataFrame(inactive_list, columns=['Name', 'Email', 'Number']))
 
 
 if __name__ == '__main__':
