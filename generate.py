@@ -51,8 +51,7 @@ def load_data(private_filepath, public_filepath=None):
 
 	if public_filepath is not None:
 		public_db = pd.ExcelFile(public_filepath)
-		return (user_db, register_db, 
-			[public_db.parse(week) for week in public_db.sheet_names if week.startswith('Week_')])
+		return (user_db, register_db, [public_db.parse(week) for week in public_db.sheet_names if week.startswith('Week_')])
 
 	return (user_db, register_db, None)
 
@@ -254,7 +253,7 @@ def generate_random_pairs(new_pairs, old_pairs=None):
 
 	for p1, p2 in random_pairs:
 
-		p1_num = new_pairs[p1][1] 
+		p1_num = new_pairs[p1][1]
 		p2_num = new_pairs[p2][1]
 
 		if p2_num in old_pairs.get(p1_num, []):
@@ -279,8 +278,7 @@ def create_output_dataframes(random_pairs, connections_new):
 	-----
 	return_pd : dataframe containing participants name, email and phone number
 	"""
-	return_pd = pd.DataFrame([], columns=['Partner_1', 'Partner_2', 
-				'P1_Number', 'P2_Number', 'P1_Email', 'P2_Email'])
+	return_pd = pd.DataFrame([], columns=['Partner_1', 'Partner_2', 'P1_Number', 'P2_Number', 'P1_Email', 'P2_Email'])
 
 	for p1, p2 in random_pairs:
 
