@@ -21,11 +21,43 @@ jobs:
               run: |
                   python -m pip install --upgrade pip wheel setuptools
                   pip install -r requirements.txt
-            - name: Even DB & Even registration
+            - name: Week 0 - Even DB & Even registration
               run: python generate.py assets/evenDB_evenRegistration.xlsx
-            - name: Even DB & Odd registration
+            - name: Week 0 - Even DB & Odd registration
               run: python generate.py assets/evenDB_oddRegistration.xlsx
-            - name: Odd DB & Even registration
+            - name: Week 0 - Odd DB & Even registration
               run: python generate.py assets/oddDB_evenRegistration.xlsx
-            - name: Odd DB & Odd registration
+            - name: Week 0 - Odd DB & Odd registration
               run: python generate.py assets/oddDB_oddRegistration.xlsx
+            - name: Week 1 - Even DB & Even registration
+              run: python generate.py assets/evenDB_evenRegistration.xlsx assets/past_1_Week.xlsx
+            - name: Week 1 - Even DB & Odd registration
+              run: python generate.py assets/evenDB_oddRegistration.xlsx assets/past_1_Week.xlsx
+            - name: Week 1 - Odd DB & Even registration
+              run: python generate.py assets/oddDB_evenRegistration.xlsx assets/past_1_Week.xlsx
+            - name: Week 1 - Odd DB & Odd registration
+              run: python generate.py assets/oddDB_oddRegistration.xlsx assets/past_1_Week.xlsx
+            - name: Week 2 - Even DB & Even registration
+              run: python generate.py assets/evenDB_evenRegistration.xlsx assets/past_2_Weeks.xlsx
+            - name: Week 2 - Even DB & Odd registration
+              run: python generate.py assets/evenDB_oddRegistration.xlsx assets/past_2_Weeks.xlsx
+            - name: Week 2 - Odd DB & Even registration
+              run: python generate.py assets/oddDB_evenRegistration.xlsx assets/past_2_Weeks.xlsx
+            - name: Week 2 - Odd DB & Odd registration
+              run: python generate.py assets/oddDB_oddRegistration.xlsx assets/past_2_Weeks.xlsx
+            - name: Week 3 - Even DB & Even registration
+              run: python generate.py assets/evenDB_evenRegistration.xlsx assets/past_3_Weeks.xlsx
+            - name: Week 3 - Even DB & Odd registration
+              run: python generate.py assets/evenDB_oddRegistration.xlsx assets/past_3_Weeks.xlsx
+            - name: Week 3 - Odd DB & Even registration
+              run: python generate.py assets/oddDB_evenRegistration.xlsx assets/past_3_Weeks.xlsx
+            - name: Week 3 - Odd DB & Odd registration
+              run: python generate.py assets/oddDB_oddRegistration.xlsx assets/past_3_Weeks.xlsx
+            - name: Week 4 - Even DB & Even registration
+              run: python generate.py assets/evenDB_evenRegistration.xlsx assets/past_4_Weeks.xlsx
+            - name: Week 4 - Even DB & Odd registration
+              run: python generate.py assets/evenDB_oddRegistration.xlsx assets/past_4_Weeks.xlsx
+            - name: Week 4 - Odd DB & Even registration
+              run: python generate.py assets/oddDB_evenRegistration.xlsx assets/past_4_Weeks.xlsx
+            - name: Week 4 - Odd DB & Odd registration
+              run: python generate.py assets/oddDB_oddRegistration.xlsx assets/past_4_Weeks.xlsx
