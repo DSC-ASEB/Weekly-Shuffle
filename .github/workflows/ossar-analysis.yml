@@ -1,0 +1,20 @@
+name: OSSAR
+
+on:
+  push:
+  schedule:
+    - cron: '39 2 * * 6'
+
+jobs:
+  OSSAR-Scan:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@main
+    - name: Run OSSAR
+      uses: github/ossar-action@main
+      id: ossar
+    - name: Upload OSSAR results
+      uses: github/codeql-action/upload-sarif@main
+      with:
+        sarif_file: ${{ steps.ossar.outputs.sarifFile }}

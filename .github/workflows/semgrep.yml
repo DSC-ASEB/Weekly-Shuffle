@@ -1,0 +1,13 @@
+on:
+  push:
+name: Semgrep
+jobs:
+  semgrep:
+    name: Scan
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@main
+    - uses: returntocorp/semgrep-action@develop
+      with:
+        publishToken: ${{ secrets.SEMGREP_APP_TOKEN }}
+        publishDeployment: 1050
