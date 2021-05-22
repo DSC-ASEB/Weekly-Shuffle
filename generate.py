@@ -396,6 +396,9 @@ if __name__ == '__main__':
 		jsn = generate_inactive_and_active(connections, len(weeks))
 		active_pd, inactive_pd = output_active_inactive(database, jsn)
 
+		print("\nActive Participants: \n{}".format(active_pd))
+		print("\nInactive Participants: \n{}".format(inactive_pd))
+		
 		active_pd.to_csv('active_participants.csv', index=False)
 		inactive_pd.to_csv('inactive_participants.csv', index=False)
 
