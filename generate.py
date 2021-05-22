@@ -398,7 +398,7 @@ if __name__ == '__main__':
 
 		print("\nActive Participants: \n{}".format(active_pd))
 		print("\nInactive Participants: \n{}".format(inactive_pd))
-		
+
 		active_pd.to_csv('active_participants.csv', index=False)
 		inactive_pd.to_csv('inactive_participants.csv', index=False)
 
