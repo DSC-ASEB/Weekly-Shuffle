@@ -354,4 +354,5 @@ ws/
 
 # Ignore all Excel files except dummy data folder
 *.xlsx
+*.csv
 !assets/*
